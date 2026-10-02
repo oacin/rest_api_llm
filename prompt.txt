@@ -1,0 +1,437 @@
+# CO-STAR Prompt
+
+## C — Context
+
+I need to build a small CRUD REST API as a hands-on exercise for using an LLM coding agent.
+
+The important part of this activity is the **LLM-assisted development process**, not the complexity of the application itself. The entire project should be generated and validated using the coding agent.
+
+The project will eventually be suitable for a public GitHub repository, so the documentation should be clear and polished. However, **do not push or upload anything to GitHub now**.
+
+Use **Python**, since it is the language I am most comfortable with.
+
+Use a very simple domain. Use **Fruit Inventory** unless you have a strong reason to choose another equally simple CRUD domain.
+
+Keep the project intentionally small and easy to understand.
+
+---
+
+## O — Objective
+
+Create the complete project from scratch.
+
+The final project must contain:
+
+* A working CRUD REST API
+* 3–5 API endpoints
+* A Markdown specification document
+* Unit tests and the test code
+* A simple Markdown ADR discussing the testing approach
+* A polished README
+* A `requirements.txt`
+* A Python script that simulates calls to the API
+* Local persistence using SQLite
+* Normal Python project hygiene such as `.gitignore`
+
+The API should implement a simple CRUD use case around fruits.
+
+Use these endpoints unless there is a clearly simpler equivalent:
+
+```text
+GET    /fruits
+GET    /fruits/{id}
+POST   /fruits
+PUT    /fruits/{id}
+DELETE /fruits/{id}
+```
+
+Keep the total number of API endpoints between **3 and 5**.
+
+---
+
+## S — Style
+
+Keep the implementation **simple, conventional, readable, and easy to explain**.
+
+Recommended stack:
+
+* Python
+* FastAPI
+* Pydantic
+* SQLite
+* pytest
+
+Use Python's built-in `sqlite3` support rather than introducing a database server or a heavy database stack.
+
+Use third-party libraries only when they are genuinely useful.
+
+Do not over-engineer the application.
+
+Avoid unnecessary:
+
+* service layers
+* repository layers
+* design patterns
+* abstractions
+* configuration systems
+* frameworks
+* infrastructure
+* dependencies
+
+Prefer straightforward code over enterprise-style architecture.
+
+The project should be small enough that a developer can understand the whole thing quickly.
+
+---
+
+## T — Tone
+
+Practical and straightforward.
+
+This is a **small coding exercise**, not a production enterprise application.
+
+Prioritize:
+
+1. Correctness
+2. Simplicity
+3. Readability
+4. Maintainability
+
+Do not add complexity just to make the project appear more sophisticated.
+
+---
+
+## A — Audience
+
+The project is intended for:
+
+* An instructor evaluating the exercise
+* A developer reviewing the generated code
+* A future GitHub visitor trying to run the project
+
+The project should therefore be easy to understand, install, test, and run.
+
+---
+
+# R — Required Deliverables
+
+Create the actual project files in the workspace.
+
+A simple structure such as this is sufficient:
+
+```text
+project/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── database.py
+│   └── models.py
+├── tests/
+│   └── ...
+├── README.md
+├── SPECIFICATION.md
+├── ADR-001-testing.md
+├── simulate.py
+├── requirements.txt
+└── .gitignore
+```
+
+You may adjust the structure when there is a good reason, but keep it small.
+
+## 1. Specification
+
+Create:
+
+```text
+SPECIFICATION.md
+```
+
+It should describe what the system is supposed to do.
+
+Include:
+
+* Project purpose
+* Scope
+* Domain/entity definition
+* Entity fields
+* API endpoints
+* Request/response behavior
+* Validation rules
+* Expected status codes
+* Error behavior
+* Persistence expectations
+* Testing expectations
+
+Keep the specification concise.
+
+The implementation and tests should be consistent with this specification.
+
+---
+
+## 2. REST API
+
+Build the API with FastAPI.
+
+A fruit can be very simple, for example:
+
+```text
+id
+name
+color
+quantity
+```
+
+Implement sensible validation and HTTP status codes.
+
+Examples:
+
+* `200` for successful reads/updates
+* `201` for successful creation
+* `204` or `200` for successful deletion
+* `404` when a fruit does not exist
+* `422` for invalid request data when handled by FastAPI/Pydantic
+
+Do not add unnecessary business rules.
+
+---
+
+## 3. Database
+
+Use **SQLite**.
+
+The user must not need to install or configure a separate database server.
+
+The application should create its SQLite database automatically when necessary.
+
+Keep database handling simple.
+
+Do not introduce PostgreSQL, MySQL, MongoDB, Redis, Docker, migrations, or similar infrastructure.
+
+---
+
+## 4. Tests
+
+Create **unit tests only** using pytest.
+
+Do not create a separate integration-test or end-to-end-test suite.
+
+The tests should cover the important behavior of the application, including successful operations and relevant error/validation cases.
+
+Keep the test suite small but meaningful.
+
+The tests should actually verify behavior rather than trivial implementation details.
+
+---
+
+## 5. Testing ADR
+
+Create:
+
+```text
+ADR-001-testing.md
+```
+
+Write a short Architecture Decision Record focused specifically on the testing strategy.
+
+Include:
+
+* Context
+* Testing decision
+* Why this approach was chosen
+* What is covered
+* What is intentionally not covered
+* Main benefits
+* Main trade-offs/limitations
+
+Keep the ADR proportional to the size of the project. It does not need to be a long architectural document.
+
+---
+
+## 6. API Simulation
+
+Create:
+
+```text
+simulate.py
+```
+
+The script must make actual HTTP requests to the running API.
+
+Demonstrate the main CRUD flow, for example:
+
+1. List fruits
+2. Create a fruit
+3. Retrieve it
+4. Update it
+5. Delete it
+6. Confirm it no longer exists
+
+Use a simple HTTP client such as `requests`.
+
+Make failures visible rather than silently ignoring them.
+
+---
+
+## 7. README
+
+Create a **polished README suitable for a future public GitHub repository**.
+
+Put real effort into the README, but do not add fake or unnecessary information.
+
+Include:
+
+* Project title
+* Project overview
+* Purpose of the exercise
+* Features
+* Technology stack
+* Project structure
+* API endpoints
+* Example API usage
+* Installation instructions
+* How to start the API
+* How to run the tests
+* How to run `simulate.py`
+* Database information
+* References to `SPECIFICATION.md` and `ADR-001-testing.md`
+
+The README must accurately match the implementation.
+
+Do not add fake badges, fake coverage numbers, fake CI status, or other information that does not exist.
+
+---
+
+## 8. Requirements
+
+Create:
+
+```text
+requirements.txt
+```
+
+Include all third-party dependencies required to run the project.
+
+Do not include Python standard-library modules.
+
+The project should be installable with:
+
+```bash
+pip install -r requirements.txt
+```
+
+Keep the dependency list minimal.
+
+---
+
+## 9. Git Hygiene
+
+Create a reasonable Python `.gitignore`.
+
+Ignore generated/local files such as:
+
+* SQLite database files
+* `__pycache__`
+* virtual environments
+* local/editor temporary files
+
+Do not push anything to GitHub.
+
+---
+
+# Constraints
+
+* Python only
+* FastAPI
+* SQLite
+* 3–5 API endpoints
+* CRUD functionality
+* Unit tests only
+* `SPECIFICATION.md`
+* `ADR-001-testing.md`
+* `README.md`
+* `requirements.txt`
+* `simulate.py`
+* No separately installed database
+* No Docker
+* No frontend
+* No authentication
+* No CI/CD
+* No cloud deployment
+* No unnecessary infrastructure
+* No unnecessary abstraction
+* No unnecessary dependencies
+
+When multiple implementations are valid, prefer the **simplest one**.
+
+Before adding a dependency, abstraction, or architectural component, consider whether the requirement can be satisfied without it.
+
+---
+
+# Self-Review and Iteration
+
+Do not assume the first implementation is correct.
+
+Use this bounded workflow:
+
+**Specification → Implement → Test → Review → Fix → Test again → Final review**
+
+After implementing the project:
+
+1. Run the tests.
+2. Run the API.
+3. Run the simulation script.
+4. Inspect the generated code and documentation.
+5. Check that the implementation matches the specification.
+6. Check that the tests actually cover the important behavior.
+7. Check for obvious bugs, broken imports, missing dependencies, or incorrect API behavior.
+8. Check for unnecessary complexity or dependencies.
+9. Fix issues you find.
+10. Re-run the relevant tests/checks.
+
+Do not endlessly iterate or polish trivial details.
+
+Stop once the project is **working, consistent, clean, simple, and satisfies all requirements**.
+
+Pay particular attention to avoiding overengineering. Ask yourself:
+
+* Can this be simpler?
+* Is this abstraction actually necessary?
+* Is this dependency actually necessary?
+* Am I adding something that the requirements never asked for?
+
+Prefer the simplest correct solution.
+
+---
+
+# Final Verification
+
+Before considering the project complete, verify that:
+
+* The project installs successfully with `pip install -r requirements.txt`
+* The API starts successfully
+* SQLite works without an external database
+* All endpoints behave correctly
+* Unit tests pass
+* `simulate.py` successfully exercises the running API
+* `SPECIFICATION.md` matches the implementation
+* `ADR-001-testing.md` accurately describes the testing approach
+* `README.md` accurately explains how to use the project
+* No unnecessary infrastructure or complexity was introduced
+
+If something fails, fix it before considering the task complete.
+
+---
+
+# Final Response
+
+Once the project is complete, give a concise summary of:
+
+* What was created
+* The technologies used
+* The API endpoints
+* The testing approach
+* How to start the API
+* How to run the tests
+* How to run the simulation
+
+Do not dump the entire source code into the response; the files themselves should contain the implementation.
